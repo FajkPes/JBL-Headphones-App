@@ -1,0 +1,13 @@
+*.rar
+*.zip
+*.apk
+*.log
+*.pcap
+*.pcapng
+*.btsnoop
+audit-*.png
+jbl-*.png
+.claude/
+analysis/
+capture/
+android platform-tools/

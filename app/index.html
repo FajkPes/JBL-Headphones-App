@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JBL Headphones App</title>
+<link rel="stylesheet" href="ui.css">
+</head>
+<body class="log-off">
+
+<!-- 1. identita a stav -->
+<header class="appbar">
+  <span class="brand">JBL <em id="brandModel">…</em></span>
+  <span class="pill" id="pillPid"></span>
+  <span class="pill" id="pillProto"></span>
+  <span class="pill" id="pillVerified"></span>
+  <span class="grow"></span>
+  <label class="cb">model
+    <select id="devSel" class="devsel"></select>
+  </label>
+  <span id="srvHost"></span>
+</header>
+
+<!-- 2. ovládání programu -->
+<div class="toolbar">
+  <div class="tgroup">
+    <button id="btnConnect" class="primary">Connect</button>
+    <button id="btnDisconnect" disabled>Disconnect</button>
+    <span id="conn" class="conn">not connected</span>
+  </div>
+
+  <div class="tgroup">
+    <button id="btnReadAll" class="act" disabled title="Sends GET requests for every mapped setting. This does not write anything.">Read all</button>
+    <span id="progress" class="progress"></span>
+  </div>
+
+  <div class="tgroup">
+    <button id="btnProbe" class="act" disabled
+            title="Sends every read-only query known to the protocol and records which ones receive a response. This does not write anything.">Explore</button>
+    <label class="cb" title="Also tries queries from the other protocol. Responses only go to the log.">
+      <input type="checkbox" id="probeOther"> include other protocol</label>
+  </div>
+
+  <div class="tgroup">
+    <button id="btnBackup" class="act" disabled>Back up to ZIP</button>
+    <button id="btnRestore" class="act" disabled>Restore backup</button>
+  </div>
+
+  <span class="grow"></span>
+
+  <div class="tgroup">
+    <input id="search" class="search" type="search" placeholder="search settings…">
+    <label class="cb" title="Hides settings that did not receive a response from the headphones">
+      <input type="checkbox" id="filterAnswered"> supported only</label>
+  </div>
+
+  <div class="tgroup">
+    <label class="cb"><input type="checkbox" id="allDevices"> all devices</label>
+    <label class="cb danger"
+           title="Unlocks writes that may not be reversible in the official app">
+      <input type="checkbox" id="unlockDanger"> risky writes</label>
+    <button id="btnLog" class="ghost sm">Log ▲</button>
+  </div>
+</div>
+
+<!-- 3. stav připojení + poznámka k modelu -->
+<div class="statusbar">
+  <div class="statuscard">
+    <div class="sctitle">Connection status</div>
+    <div id="diagList"></div>
+    <p class="note" id="pairingHint"></p>
+  </div>
+  <div class="statuscard">
+    <div class="sctitle">Legend</div>
+    <div class="legend">
+      <span><i class="dot ok"></i> headphones responded — the setting works</span>
+      <span><i class="dot miss"></i> no response — probably unsupported</span>
+      <span><i class="dot"></i> not checked yet</span>
+      <span><i class="pill w">caution</i> confirmation required; immediate effect</span>
+      <span><i class="pill n">irreversible / critical</i> locked until explicitly enabled</span>
+    </div>
+    <p class="note" id="deviceNote"></p>
+  </div>
+</div>
+
+<!-- 4. záložky -->
+<nav class="tabs" id="tabs"></nav>
+
+<!-- 5. obsah -->
+<main id="content"></main>
+
+<!-- 6. log -->
+<div id="logdrawer">
+  <div id="loghead">
+    <span class="tlabel">Packet log</span>
+    <span class="grow"></span>
+    <span class="tlabel">Manual command</span>
+    <input id="rawAddr" class="hexin" style="width:150px">
+    <button id="btnRawGet" class="sm act" disabled>GET</button>
+    <input id="rawVal" class="hexin" style="width:150px">
+    <button id="btnRawSet" class="sm act danger-btn" disabled>SET</button>
+    <button id="btnClear" class="sm ghost">Clear</button>
+  </div>
+  <div id="log"></div>
+</div>
+
+<script type="module">
+import './i18n.js';
+import { PAIRING_HINT } from './ble.js';
+document.getElementById('pairingHint').textContent = PAIRING_HINT;
+</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

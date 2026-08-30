@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JBL Headphones App — Select a model</title>
+<style>
+  :root{--bg:#0c0e10;--panel:#15181b;--line:#282e34;--fg:#e9edf1;--dim:#8f99a3;
+        --mono:ui-monospace,"Cascadia Mono",Consolas,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--fg);
+       font:15px/1.6 system-ui,"Segoe UI",sans-serif;
+       display:flex;flex-direction:column;align-items:center;justify-content:center;
+       padding:32px;gap:24px}
+  h1{margin:0;font-size:21px;font-weight:600;text-align:center}
+  h1 small{display:block;font-size:13px;color:var(--dim);font-weight:400;margin-top:6px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+        max-width:780px;width:100%}
+  a.opt{display:block;text-decoration:none;color:inherit;background:var(--panel);
+        border:1px solid var(--line);border-radius:12px;padding:20px;
+        transition:border-color .15s,transform .15s}
+  a.opt:hover{transform:translateY(-2px)}
+  a.opt.nc:hover{border-color:#ff6a00}
+  a.opt.bt:hover{border-color:#3fa7ff}
+  .model{font-size:19px;font-weight:600;margin-bottom:3px}
+  .nc .model{color:#ff6a00} .bt .model{color:#3fa7ff}
+  .sub{font-size:13px;color:var(--dim);margin-bottom:12px}
+  .facts{font:11.5px/1.8 var(--mono);color:var(--dim)}
+  .facts b{color:var(--fg);font-weight:500}
+  .info{max-width:780px;font-size:13px;color:var(--dim);background:var(--panel);
+        border:1px solid var(--line);border-left:3px solid #d29922;
+        border-radius:8px;padding:13px 16px}
+  .info b{color:var(--fg)}
+  footer{font-size:11px;color:var(--dim);text-align:center}
+</style>
+</head>
+<body>
+
+<h1>Control JBL headphones from your PC
+  <small>Both models use the same app; only the protocol and setting map differ.</small>
+</h1>
+
+<div class="grid">
+  <a class="opt nc" href="index.html?dev=tune780nc">
+    <div class="model">TUNE 780NC</div>
+    <div class="sub">Reference model — full feature map</div>
+    <div class="facts">
+      PID <b>215F</b><br>
+      <b>Protocol 4</b> (feature ID)<br>
+      frame <b>00 DD …</b><br>
+      <b>not yet verified</b> on hardware
+    </div>
+  </a>
+
+  <a class="opt bt" href="index.html?dev=tune720bt">
+    <div class="model">TUNE 720BT</div>
+    <div class="sub">Older model without ANC — verified on real hardware</div>
+    <div class="facts">
+      PID <b>20B4</b><br>
+      <b>Protocol 3</b> (command ID)<br>
+      frame <b>AA &lt;cmd&gt; &lt;len&gt;</b><br>
+      subset of settings
+    </div>
+  </a>
+</div>
+
+<div class="info">
+  <b>You can change the model inside the app</b> using the selector in the
+  top-right corner. Only mapped settings for that model are shown, so the
+  720BT does not display Auracast, LE Audio, or spatial-audio controls.
+  After connecting, select <b>Read all</b>; settings that receive a real
+  response are marked in green.
+</div>
+
+<div id="srvHost"></div>
+
+<footer>Created by FajkPes with assistance from ChatGPT Codex and Claude Code.</footer>
+
+<script type="module">
+import * as Server from './serverstatus.js';
+Server.watch(document.getElementById('srvHost'));
+</script>
+
+</body>
+</html>

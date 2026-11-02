@@ -66,3 +66,8 @@ No Node.js dependency is required to run the app. Node.js is only used for the
 developer test suite.
 
 [Detailed documentation](README-DETAILS.md) · [All releases](https://github.com/FajkPes/JBL-Headphones-App/releases)
+
+## Credits
+
+**Idea, concept and design:** FajkPes  
+**Coding:** ChatGPT Codex, Claude and Google Antigravity

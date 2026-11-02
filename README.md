@@ -67,6 +67,31 @@ developer test suite.
 
 [Detailed documentation](README-DETAILS.md) · [All releases](https://github.com/FajkPes/JBL-Headphones-App/releases)
 
+## Safe usage
+
+1. Use **Read all** and confirm the setting is shown as supported.
+2. Use **Back up to ZIP** before writing anything.
+3. Review the current value, proposed value, risk level, and outgoing bytes in
+   the confirmation dialog.
+4. Change one value, verify the result, and keep the browser log.
+5. Treat the 780NC write controls as experimental until tested on that model.
+
+The safety guard validates the final raw frame immediately before every write.
+It is protocol-wide, so a manual command, restore operation, or UI control
+cannot bypass the same blocked-sequence list.
+
+## Backups and exploration reports
+
+Backups contain:
+
+- `backup.json` — machine-readable values and model metadata
+- `SUMMARY.txt` — human-readable English overview
+- `HEX.txt` — raw values for comparison
+
+The loader remains compatible with older backups containing `zaloha.json`.
+Exploration creates `EXPLORATION.txt` and `exploration.json`; it sends read-only
+queries and never writes settings.
+
 ## Credits
 
 **Idea, concept and design:** FajkPes  
